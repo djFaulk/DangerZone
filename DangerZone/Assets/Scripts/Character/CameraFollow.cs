@@ -3,24 +3,23 @@ using System.Collections;
 
 public class CameraFollow : MonoBehaviour
 {
-		public GameObject player;
+		[SerializeField] private Transform player;
+		[SerializeField] private Vector3 pos;
+		[SerializeField] private float smoothSpeed = 10f;
+		private Vector3 velocity = new Vector3(0,0,0);
     
 		// Use this for initialization
 		void Start ()
 		{
-	
 		}
     
-		void Update ()
+		void FixedUpdate ()
 		{
-				var newX = player.transform.position.x;
-				//  var newZ = player.transform.position.z;
-				var y = transform.position.y;
-				var z = transform.position.z;
-				var chaseSpeed = .3f;
-
-				transform.position = transform.position +
-						(new Vector3 (newX, y, z) - transform.position) * chaseSpeed;
+			Debug.Log("Camera upadted to: " + transform.position);
+			Vector3 desiredPosition = player.transform.position + pos;
+			//If we want the camera to smoothly follow flag
+			//Vector3 smoothPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothSpeed * Time.deltaTime);
+			transform.position = desiredPosition;
 		}
 }
  

@@ -37,23 +37,25 @@ public class PlayerSpawnManager : MonoBehaviour, IGameManager
 
     }
 
-    // public void RespawnPlayer(int player)
-    // {
-    //     if(player == 1)
-    //     {
-    //         GameObject p1 = (GameObject)Instantiate (PlayerOneGO, p1SpawnLocation.transform.position, PlayerOneGO.transform.rotation);
-    //         p1.layer = 10;
-    //         p1.name = "Player1";
-    //         p1.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.blue;
-    //     } 
-    //     else if (player == 2)
-    //     {
-    //         GameObject p2 = (GameObject)Instantiate (PlayerTwoGO, p2SpawnLocation.transform.position, PlayerTwoGO.transform.rotation);
-    //         p2.layer = 10;
-    //         p2.name = "Player2";
-    //         p2.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.red;
-    //     } else {
-    //         Debug.Log("INVALID PLAYER RESPAWN. ATTEMPTED RESPAWN OF PLAYER " + player);
-    //     }
-    // }
+    public void RespawnPlayer(int player)
+    {
+        if(player == 1)
+        {
+            Debug.LogFormat("Spawning Player at : {0}, {1}, {2}", p1SpawnLocation.transform.position.x, p1SpawnLocation.transform.position.y, p1SpawnLocation.transform.position.z);
+            GameObject p1 = (GameObject)Instantiate (PlayerOneGO, p1SpawnLocation.transform.position, PlayerOneGO.transform.rotation);
+            p1.layer = 10;
+            p1.name = "Player1";
+            p1.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.blue;
+        } 
+        else if (player == 2)
+        {
+            Debug.LogFormat("Spawning Player at : {0}, {1}, {2}", p1SpawnLocation.transform.position.x, p1SpawnLocation.transform.position.y, p1SpawnLocation.transform.position.z);
+            GameObject p2 = (GameObject)Instantiate (PlayerTwoGO, p2SpawnLocation.transform.position, PlayerTwoGO.transform.rotation);
+            p2.layer = 10;
+            p2.name = "Player2";
+            p2.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.red;
+        } else {
+            Debug.Log("INVALID PLAYER RESPAWN. ATTEMPTED RESPAWN OF PLAYER " + player);
+        }
+    }
 }

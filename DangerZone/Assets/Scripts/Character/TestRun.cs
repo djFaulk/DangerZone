@@ -60,7 +60,7 @@ public class TestRun : MonoBehaviour
 		void Update ()
 		{
 		
-				if (grounded && (Input.GetKeyDown (player.name + "Jump") || Input.GetButtonDown (player.name + "A"))) {
+				if (grounded && (Input.GetButtonDown (player.name + "Jump") || Input.GetButtonDown (player.name + "A"))) {
 			
 						anim.SetBool ("Jump", true);
 						GetComponent<Rigidbody>().velocity = new Vector3 (0, jumpForce, 0);

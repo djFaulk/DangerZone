@@ -129,13 +129,20 @@ public class GameLogic : MonoBehaviour
 			Global.Instance.p1Dead = false;
 			Global.Instance.p2Dead = false;
 		} else if (player == 1 && Global.Instance.p1Dead) {
-			gameObject.GetComponent<PlayerSpawnManager> ().RespawnPlayer (1);
+			StartCoroutine(WaitForSpawn(1.5f,1));
 			Global.Instance.p1Dead = false;
 		} else if (player == 2 && Global.Instance.p2Dead) {
-			gameObject.GetComponent<PlayerSpawnManager> ().RespawnPlayer (2);
+			StartCoroutine(WaitForSpawn(1.5f,2));
 			Global.Instance.p2Dead = false;
 		}	
 			
+	}
+
+
+	IEnumerator WaitForSpawn(float time, int player)
+	{
+		yield return new WaitForSeconds(time);
+		gameObject.GetComponent<PlayerSpawnManager> ().RespawnPlayer (player);
 	}
 
 	// IEnumerator Winner ()

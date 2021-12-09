@@ -10,52 +10,97 @@ public class PlayerSpawnManager : MonoBehaviour, IGameManager
     [SerializeField] private GameObject PlayerOneGO;
     [SerializeField] private GameObject PlayerTwoGO;
 
+    [SerializeField] private GameObject player1Obj;
+    [SerializeField] private GameObject player2Obj;
+
+    private void Awake() {
+		Messenger<int>.AddListener(GameEvent.PLAYER_DIED, OnDeath);
+	}
+
+    private void OnDestroy() {
+		Messenger<int>.RemoveListener(GameEvent.PLAYER_DIED, OnDeath);
+	}
+
     public void Startup()
     {
         Debug.Log("Spawn Manager Starting Up");
 
         status = ManagerStatus.Initializing;
 
-        //PlayerOneGO = Global.Instance.GetPlayerOneGO();
-
-        //PlayerTwoGO = Global.Instance.GetPlayerTwoGO();
+        player1Obj = null;
+        player2Obj = null;
 
         status = ManagerStatus.Started;
     }
 
+
+
     public void SpawnPlayers()
     {
-        GameObject p1 = (GameObject)Instantiate (PlayerOneGO, p1SpawnLocation.transform.position, PlayerOneGO.transform.rotation);
-        p1.layer = 10;
-        p1.name = "Player1";
-        p1.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.blue;
+        if(player1Obj == null)
+        {        
+            player1Obj = (GameObject)Instantiate (PlayerOneGO, p1SpawnLocation.transform.position, PlayerOneGO.transform.rotation);
+            player1Obj.layer = 10;
+            player1Obj.name = "Player1";
+            player1Obj.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.blue;
+        }
 
-        GameObject p2 = (GameObject)Instantiate (PlayerTwoGO, p2SpawnLocation.transform.position, PlayerTwoGO.transform.rotation);
-        p2.layer = 10;
-        p2.name = "Player2";
-        p2.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.red;
+        if(player2Obj == null)
+        {
+            player2Obj = (GameObject)Instantiate (PlayerTwoGO, p2SpawnLocation.transform.position, PlayerTwoGO.transform.rotation);
+            player2Obj.layer = 10;
+            player2Obj.name = "Player2";
+            player2Obj.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.red;
+        }
+
 
     }
 
     public void RespawnPlayer(int player)
     {
+        Debug.Log("Respawning Player: " + player);
         if(player == 1)
         {
-            Debug.LogFormat("Spawning Player at : {0}, {1}, {2}", p1SpawnLocation.transform.position.x, p1SpawnLocation.transform.position.y, p1SpawnLocation.transform.position.z);
-            GameObject p1 = (GameObject)Instantiate (PlayerOneGO, p1SpawnLocation.transform.position, PlayerOneGO.transform.rotation);
-            p1.layer = 10;
-            p1.name = "Player1";
-            p1.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.blue;
+            if(player1Obj == null)
+            {
+                Debug.LogFormat("Spawning Player at : {0}, {1}, {2}", p1SpawnLocation.transform.position.x, p1SpawnLocation.transform.position.y, p1SpawnLocation.transform.position.z);
+                player1Obj = (GameObject)Instantiate (PlayerOneGO, p1SpawnLocation.transform.position, PlayerOneGO.transform.rotation);
+                player1Obj.layer = 10;
+                player1Obj.name = "Player1";
+                player1Obj.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.blue;
+            }
+
         } 
         else if (player == 2)
         {
-            Debug.LogFormat("Spawning Player at : {0}, {1}, {2}", p1SpawnLocation.transform.position.x, p1SpawnLocation.transform.position.y, p1SpawnLocation.transform.position.z);
-            GameObject p2 = (GameObject)Instantiate (PlayerTwoGO, p2SpawnLocation.transform.position, PlayerTwoGO.transform.rotation);
-            p2.layer = 10;
-            p2.name = "Player2";
-            p2.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.red;
+            if(player2Obj == null)
+            {
+                Debug.LogFormat("Spawning Player at : {0}, {1}, {2}", p1SpawnLocation.transform.position.x, p1SpawnLocation.transform.position.y, p1SpawnLocation.transform.position.z);
+                player2Obj = (GameObject)Instantiate (PlayerTwoGO, p2SpawnLocation.transform.position, PlayerTwoGO.transform.rotation);
+                player2Obj.layer = 10;
+                player2Obj.name = "Player2";
+                player2Obj.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.red;
+            }
+
         } else {
             Debug.Log("INVALID PLAYER RESPAWN. ATTEMPTED RESPAWN OF PLAYER " + player);
+        }
+    }
+
+    private void OnDeath(int player)
+    {
+        Debug.Log("SpawnPlayerManager.OnDeath: player " + player);
+        if(player == 1)
+        {
+            player1Obj = null;
+        } 
+        else if (player == 2)
+        {
+            player2Obj = null;
+        }
+        else
+        {
+            Debug.Log("INVALID PLAYER DIED. PLAYER " + player + " REPORTED DEAD");
         }
     }
 }

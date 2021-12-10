@@ -27,7 +27,11 @@ public class ItemManager : MonoBehaviour
 
 		private RaycastHit rayHitInfo;
 
-		// Use this for initialization
+		private void Awake() {
+			//Messenger<int>.AddListener(GameEvent.PLAYER_DIED, dropItem);
+		}
+
+		// Use this for initialization 
 		void Start ()
 		{
 				flagHeld = null;
@@ -117,41 +121,46 @@ public class ItemManager : MonoBehaviour
 
 		public void itemCatch (GameObject item)
 		{
-				if (itemHeld == null && item.tag == "Item") {
-						itemHeld = item;
-						if (gameObject.transform.root.name == "Player1") {
-								Global.Instance.player1Item = item.GetComponent<ItemBase> ().getSprite ();
-						} else {
-								Global.Instance.player2Item = item.GetComponent<ItemBase> ().getSprite ();
-						}
-						itemHeld.GetComponent<Collider>().enabled = false;
-						itemHeld.GetComponent<Rigidbody>().velocity = Vector3.zero;
-						itemHeld.GetComponent<Rigidbody>().useGravity = false;
-						itemHeld.tag = "Item";
-		
-						if (player.name == "Player1")
-								itemHeld.layer = 10;
-						else if (player.name == "Player2")
-								itemHeld.layer = 11;
+			if (itemHeld == null && item.tag == "Item") {
+				itemHeld = item;
+				if (gameObject.transform.root.name == "Player1") {
+						Global.Instance.player1Item = item.GetComponent<ItemBase> ().getSprite ();
+				} else {
+						Global.Instance.player2Item = item.GetComponent<ItemBase> ().getSprite ();
 				}
-				if (item.tag == "Flag") {
-						flagHeld = item;
-						flagHeld.GetComponent<Collider>().enabled = false;
-						flagHeld.GetComponent<Rigidbody>().velocity = Vector3.zero;
-						flagHeld.GetComponent<Rigidbody>().useGravity = false;
-						//itemHeld.tag = "Item";
-						Global.Instance.playerHasflag = player.name;
-						if (player.name == "Player1") {
+				itemHeld.GetComponent<Collider>().enabled = false;
+				itemHeld.GetComponent<Rigidbody>().velocity = Vector3.zero;
+				itemHeld.GetComponent<Rigidbody>().useGravity = false;
+				itemHeld.tag = "Item";
 
-								flagHeld.layer = 10;
-								
-						} else if (player.name == "Player2") {
-			
-								flagHeld.layer = 11;
-								
+				if (player.name == "Player1")
+						itemHeld.layer = 10;
+				else if (player.name == "Player2")
+						itemHeld.layer = 11;
+			}
+			if (item.tag == "Flag") {
+				flagHeld = item;
+				flagHeld.GetComponent<Collider>().enabled = false;
+				flagHeld.GetComponent<Rigidbody>().velocity = Vector3.zero;
+				flagHeld.GetComponent<Rigidbody>().useGravity = false;
+				//itemHeld.tag = "Item";
+				Global.Instance.playerHasFlag = int.Parse(player.name.Substring(player.name.Length - 1));
+				if (player.name == "Player1") {
 
-						}
+						flagHeld.layer = 10;
+						
+				} else if (player.name == "Player2") {
+	
+						flagHeld.layer = 11;
+						
+
 				}
+			}
+		}
+
+		void dropItem(int player)
+		{
+
 		}
 
 		void GetAiming ()

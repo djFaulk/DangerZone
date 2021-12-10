@@ -20,6 +20,7 @@ public class GameLogic : MonoBehaviour
 
 	private void Awake() {
 		Messenger<int>.AddListener(GameEvent.PLAYER_DIED, SpawnTheDead);
+		Debug.Log("Adding listener for player death: GameLogic");
 		//Messenger.AddListener(GameEvent.PLAYER_SCORED, PlayerScore);
 	}
 
@@ -124,6 +125,7 @@ public class GameLogic : MonoBehaviour
 
 	void SpawnTheDead (int player)
 	{
+		Debug.Log("Answering OnPlayerDeath: GameLogic");
 		if (Global.Instance.p1Dead && Global.Instance.p2Dead) {
 			roundReset = true;
 			Global.Instance.p1Dead = false;

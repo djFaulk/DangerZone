@@ -15,6 +15,7 @@ public class PlayerSpawnManager : MonoBehaviour, IGameManager
 
     private void Awake() {
 		Messenger<int>.AddListener(GameEvent.PLAYER_DIED, OnDeath);
+        Debug.Log("Adding listener in PlayerSpawnManager");
 	}
 
     private void OnDestroy() {

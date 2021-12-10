@@ -10,6 +10,7 @@ public class PlayerDeath : MonoBehaviour, IDeath
 	{
 		int player = -1;
 		if (gameObject.name == "Player1") {
+			if(Global.Instance.playerHasFlag == 1) Global.Instance.playerHasFlag = -1;
 			player = 1;
 			Global.Instance.p1Dead = true;
 			//Debug.Log (Global.Instance.p1Dead);
@@ -17,6 +18,7 @@ public class PlayerDeath : MonoBehaviour, IDeath
 			//if(p2 != null) p2.GetComponentInChildren<ItemManager> ().itemCatch (GameObject.FindGameObjectWithTag ("Flag"));
 			Debug.Log("Flag given to Player 2");
 		} else if (gameObject.name == "Player2") {
+			if(Global.Instance.playerHasFlag == 2) Global.Instance.playerHasFlag = -1;
 			player = 2;
 			Global.Instance.p2Dead = true;
 			Debug.Log (Global.Instance.p1Dead + " p2");

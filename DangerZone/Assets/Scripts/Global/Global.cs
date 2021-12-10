@@ -13,7 +13,7 @@ public class Global : MonoBehaviour
 		public List<GameObject> gameItems;
 		public bool p1Dead = false;
 		public bool p2Dead = false;
-		public string playerHasflag;
+		public int playerHasFlag;
 		public bool playerScored = false;
 		public float time = 300f;
 		public Sprite player1Item = null;

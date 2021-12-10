@@ -15,10 +15,25 @@ public class CameraFollow : MonoBehaviour
     
 		void FixedUpdate ()
 		{
-			Debug.Log("Camera upadted to: " + transform.position);
-			Vector3 desiredPosition = player.transform.position + pos;
+			//Debug.Log("Camera upadted to: " + transform.position);
+
 			//If we want the camera to smoothly follow flag
 			//Vector3 smoothPosition = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothSpeed * Time.deltaTime);
+			if(Global.Instance.playerHasFlag == 1)
+			{
+				pos.x = -11;
+			}
+			else if (Global.Instance.playerHasFlag == 2)
+			{
+				pos.x = 11;
+			}
+			else
+			{
+				pos.x = 0;
+			}
+
+			Vector3 desiredPosition = player.transform.position + pos;
+			
 			transform.position = desiredPosition;
 		}
 }

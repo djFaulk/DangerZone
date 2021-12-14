@@ -19,13 +19,13 @@ public class GameLogic : MonoBehaviour
 	public GameObject winPanel;
 
 	private void Awake() {
-		Messenger<int>.AddListener(GameEvent.PLAYER_DIED, SpawnTheDead);
-		Debug.Log("Adding listener for player death: GameLogic");
+		//Messenger<int>.AddListener(GameEvent.PLAYER_DIED, SpawnTheDead);
+		//Debug.Log("Adding listener for player death: GameLogic");
 		//Messenger.AddListener(GameEvent.PLAYER_SCORED, PlayerScore);
 	}
 
 	private void OnDestroy() {
-		Messenger<int>.RemoveListener(GameEvent.PLAYER_DIED, SpawnTheDead);
+		//Messenger<int>.RemoveListener(GameEvent.PLAYER_DIED, SpawnTheDead);
 		//Messenger.RemoveListener(GameEvent.PLAYER_SCORED, PlayerScore);
 	}
 

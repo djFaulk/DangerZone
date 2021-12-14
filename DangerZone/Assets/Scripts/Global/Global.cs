@@ -96,6 +96,7 @@ public class Global : MonoBehaviour
 		{
 				flag.GetComponent<Collider>().enabled = true;
 				flag.GetComponent<Rigidbody>().useGravity = true;
+				flag.transform.position = new Vector3(flag.transform.position.x, flag.transform.position.y, 0);
 		}
 	#endregion
 }
